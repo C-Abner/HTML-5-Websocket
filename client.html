@@ -1,0 +1,35 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8">
+<title>WebSocket</title>
+<script type="text/javascript" src="jquery-1.10.1.min.js">
+</script>
+<script type="application/javascript"></script>
+<script type="text/javascript">
+var ws = new WebSocket("ws://NEWTESTSERVE:9000");
+ws.onopen = function(){
+	console.log("握手成功");
+}
+ws.onmessage = function(e){
+	var msg = JSON.parse(e.data);
+	console.log(msg.type + " : " + msg.text);
+}
+ws.onerror = function(){
+	console.log("error");
+}
+  function sendmsg() {
+	var msg = new Object;
+	msg.type = "message";
+	msg.text = "send msg";
+		
+        ws.send(JSON.stringify(msg));
+  }
+</script>
+</head>
+
+<body>
+        Test: <input type="text" name="test" value="test" ><br>
+        <input type="button" value="Send" onclick="sendmsg()">
+        <div id="ShowTime" Style="font-size:24px"></div>
+</body>
+</html>
